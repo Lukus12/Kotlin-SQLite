@@ -1,0 +1,6 @@
+package com.example.kotlin_sqlite
+
+import android.media.Image
+
+class Item(val id:Int, val image: String, val title:String, val desc:String, val text:String, val price: Int) {
+}
