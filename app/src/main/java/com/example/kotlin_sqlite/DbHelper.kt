@@ -30,4 +30,11 @@ class DbHelper(val context: Context, val factory:SQLiteDatabase.CursorFactory? )
         db.close()
     }
 
+    fun getUser(login:String, pass:String): Boolean {
+        val db = this.readableDatabase //обращение к нашей бд, в которую можно что-то прочитать
+        //получаем запись из бд
+        val result = db.rawQuery("SELECT * FROM users WHERE login = '$login' AND pass = '$pass'", null)
+        return result.moveToFirst() //до первой записи в бд
+    }
+
 }

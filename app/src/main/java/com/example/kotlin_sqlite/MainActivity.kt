@@ -1,5 +1,6 @@
 package com.example.kotlin_sqlite
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         val userEmail: EditText = findViewById(R.id.userEmail)
         val userPass: EditText = findViewById(R.id.userPass)
         val buttonReg: Button = findViewById(R.id.buttonReg)
+        val transToAuth: TextView = findViewById(R.id.TransToAuth)
 
         buttonReg.setOnClickListener{
             val login = userLogin.text.toString().trim()
@@ -46,7 +48,12 @@ class MainActivity : AppCompatActivity() {
                 userEmail.text.clear()
                 userPass.text.clear()
             }
-
         }
+
+        transToAuth.setOnClickListener {
+            val intent = Intent(this, AuthActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 }
