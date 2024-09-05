@@ -1,4 +1,4 @@
-package com.example.kotlin_sqlite
+package com.example.kotlin_sqlite.presentation.activities
 
 import android.os.Bundle
 import android.widget.ImageView
@@ -7,27 +7,28 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.kotlin_sqlite.R
+import com.squareup.picasso.Picasso
 
-class ProductActivity : AppCompatActivity() {
+class ProductItemActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_product)
+        setContentView(R.layout.activity_product_item)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        val image: ImageView = findViewById(R.id.item_product_image)
+        val title: TextView = findViewById(R.id.item_product_title)
+        val text:TextView = findViewById(R.id.item_product_desc)
 
-        val image: ImageView = findViewById(R.id.item_list_image_product)
-        val title:TextView = findViewById(R.id.item_list_title_inside)
-        val text:TextView = findViewById(R.id.item_list_text_inside)
-
-        val imageId = intent.getIntExtra("itemImageId", -1)
-        title.text = intent.getStringExtra("itemTitle")
+        Picasso.get().load(intent.getStringExtra("itemImageURL")).into(image)
+        title.text = intent.getStringExtra("itemName")
         text.text = intent.getStringExtra("itemText")
 
 
-        image.setImageResource(imageId)
+
     }
 }
