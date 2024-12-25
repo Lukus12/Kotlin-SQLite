@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".presentation.fragments.ProfileFragment"
+    android:background="#EEBFAF73">
+
+
+    <FrameLayout
+        android:layout_marginTop="50dp"
+        android:id="@+id/profile_image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center">
+
+        <View
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/circle_background" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="45dp"
+            android:src="@drawable/profile"
+            android:layout_gravity="center" />
+    </FrameLayout>
+
+
+    <TextView
+        android:id="@+id/usernameUnderIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Имя"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center" />
+
+    <!-- Кнопка редактирования профиля -->
+    <Button
+        app:backgroundTint="@drawable/button_color"
+        android:id="@+id/edit_profile_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:text="Редактировать профиль"
+        android:textColor="@drawable/button_text_color"
+        android:layout_marginTop="16dp" />
+
+    <!-- Кнопка питомцев -->
+    <Button
+        app:backgroundTint="@drawable/button_color"
+        android:id="@+id/pets_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:text="Питомцы"
+        android:textColor="@drawable/button_text_color"
+        android:layout_marginTop="8dp" />
+
+    <!-- Кнопка история приёмов -->
+    <Button
+        app:backgroundTint="@drawable/button_color"
+        android:id="@+id/appointments_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:text="История приёмов"
+        android:textColor="@drawable/button_text_color"
+        android:layout_marginTop="8dp" />
+
+    <!-- Кнопка настройки -->
+    <Button
+        app:backgroundTint="@drawable/button_color"
+        android:id="@+id/settings_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:text="Настройки"
+        android:textColor="@drawable/button_text_color"
+        android:layout_marginTop="8dp" />
+
+    <!-- Кнопка техподдержки -->
+    <Button
+        app:backgroundTint="@drawable/button_color"
+        android:id="@+id/support_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:text="Техподдержка"
+        android:textColor="@drawable/button_text_color"
+        android:layout_marginTop="8dp" />
+
+    <Button
+        app:backgroundTint="@drawable/button_color"
+        android:id="@+id/main_menu_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:text="На главную"
+        android:textColor="@drawable/button_text_color"
+        android:layout_marginTop="75dp" />
+
+</LinearLayout>

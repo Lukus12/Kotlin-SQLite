@@ -11,8 +11,9 @@ import com.example.kotlin_sqlite.domain.models.Product
 import com.example.kotlin_sqlite.presentation.MainViewModel
 import com.example.kotlin_sqlite.presentation.adapters.ProductAdapter
 import com.example.kotlin_sqlite.databinding.FragmentProductBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class ProductFragment : Fragment() {
     private lateinit var binding: FragmentProductBinding
     private val model: MainViewModel by activityViewModels()

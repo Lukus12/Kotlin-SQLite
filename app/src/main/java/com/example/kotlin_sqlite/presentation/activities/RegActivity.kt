@@ -13,8 +13,14 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.kotlin_sqlite.R
 import com.example.kotlin_sqlite.domain.models.User
 import com.example.kotlin_sqlite.presentation.DbHelper
+import com.example.kotlin_sqlite.repository.MainRepository
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class RegActivity : AppCompatActivity() {
+    @Inject
+    lateinit var mainRepository: MainRepository
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -26,34 +32,31 @@ class RegActivity : AppCompatActivity() {
         }
 
         val userLogin: EditText = findViewById(R.id.userLogin)
-        val userEmail: EditText = findViewById(R.id.userEmail)
         val userPass: EditText = findViewById(R.id.userPass)
         val buttonReg: Button = findViewById(R.id.buttonReg)
         val transToAuth: TextView = findViewById(R.id.TransToAuth)
 
         buttonReg.setOnClickListener{
             val login = userLogin.text.toString().trim()
-            val email = userEmail.text.toString().trim()
             val pass = userPass.text.toString().trim()
 
-            if(login == "" || email == "" || pass=="") {
+            if(login == "" || pass=="") {
                 Toast.makeText(this, "Не все поля заполнены", Toast.LENGTH_LONG).show()
             }
-            else{
-                val user = User(login, email, pass)
 
-                val db = DbHelper(this, null)
-                db.addUser(user)
-
-                Toast.makeText(this, "Пользователь $login успешно зарегистрирован", Toast.LENGTH_LONG).show()
-
-                userLogin.text.clear()
-                userEmail.text.clear()
-                userPass.text.clear()
-
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+            mainRepository.reg(login,pass){ isDone, message  ->
+                if (!isDone) {
+                    // выводим причину ошибки
+                    Toast.makeText(this@RegActivity, message , Toast.LENGTH_SHORT).show()
+                } else { // успешный вход в систему
+                    startActivity(Intent(this@RegActivity, MainActivity::class.java).apply {
+                        putExtra("username", login)
+                        intent.putExtra("FRAGMENT_TO_SHOW", "MainFragment")
+                        intent.putExtra("TYPE", "view")
+                    })
+                }
             }
+
         }
 
         transToAuth.setOnClickListener {

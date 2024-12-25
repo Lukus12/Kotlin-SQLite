@@ -31,7 +31,7 @@
         android:layout_marginTop="20dp"
         android:layout_gravity="center"
         android:textColor="#fdfdfd"
-        android:hint="Введите логин" />
+        android:hint="Введите логин (имя)" />
 
 
     <EditText

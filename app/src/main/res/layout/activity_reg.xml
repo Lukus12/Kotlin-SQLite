@@ -34,18 +34,6 @@
         android:hint="Введите логин" />
 
     <EditText
-        android:id="@+id/userEmail"
-        android:layout_width="220dp"
-        android:layout_height="50dp"
-        android:ems="10"
-        android:inputType="textEmailAddress"
-        android:textColorHint="#6a6a6a"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"
-        android:textColor="#fdfdfd"
-        android:hint="Введите email" />
-
-    <EditText
         android:id="@+id/userPass"
         android:layout_width="220dp"
         android:layout_height="50dp"

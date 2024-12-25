@@ -1,4 +1,4 @@
-package com.example.kotlin_sqlite.fragments
+package com.example.kotlin_sqlite.presentation.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,7 +11,9 @@ import com.example.kotlin_sqlite.presentation.MainViewModel
 import com.example.kotlin_sqlite.databinding.FragmentServicesBinding
 import com.example.kotlin_sqlite.domain.models.Services
 import com.example.kotlin_sqlite.presentation.adapters.ServicesAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ServicesFragment : Fragment() {
     private lateinit var binding: FragmentServicesBinding
     private val model: MainViewModel by activityViewModels()

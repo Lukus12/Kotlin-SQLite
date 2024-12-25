@@ -2,6 +2,7 @@ package com.example.kotlin_sqlite.presentation.adapters
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,11 +14,13 @@ import com.example.kotlin_sqlite.domain.models.Doctors
 import com.example.kotlin_sqlite.presentation.activities.DoctorsItemActivity
 
 import com.squareup.picasso.Picasso
+import dagger.hilt.android.AndroidEntryPoint
 
 
 //класс, который подставляет в поля дизайна item_in_list значения из элементов списка Item из ItemsActivity
 class DoctorsAdapter(private val context: Context, private var items:List<Doctors>): RecyclerView.Adapter<DoctorsAdapter.MyViewHolder>() {
 
+    private lateinit var username: String
     //view - это наш дизайн, например, item_in_list.xml
     class MyViewHolder(view:View): RecyclerView.ViewHolder(view){
 
@@ -45,9 +48,14 @@ class DoctorsAdapter(private val context: Context, private var items:List<Doctor
         holder.tel.text = items[position].telDoctors
         Picasso.get().load(items[position].imageURL).into(holder.image)
 
+        //username = intent.getStringExtra("username").toString()
+        //Log.d("POPS", "nameAdapter: $username")
+
 
         holder.itemView.setOnClickListener { //передача данных на другую активити
             val intent = Intent(context, DoctorsItemActivity::class.java)
+
+            //intent.putExtra("username", username)
 
             intent.putExtra("itemDocImageURL", items[position].imageURL)
             intent.putExtra("itemDocName", items[position].nameDoctors)

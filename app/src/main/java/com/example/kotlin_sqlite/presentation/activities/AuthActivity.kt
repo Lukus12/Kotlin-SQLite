@@ -11,54 +11,53 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.kotlin_sqlite.R
+import com.example.kotlin_sqlite.databinding.ActivityAuthBinding
 import com.example.kotlin_sqlite.presentation.DbHelper
+import com.example.kotlin_sqlite.repository.MainRepository
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class AuthActivity : AppCompatActivity() {
+    private lateinit var views: ActivityAuthBinding
+    @Inject
+    lateinit var mainRepository: MainRepository
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_auth)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.placeHolder)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+        views = ActivityAuthBinding.inflate(layoutInflater)
+        setContentView(views.root)
+        init()
+    }
 
-        val userLoginBd: EditText = findViewById(R.id.userLogin_auth)
-        val userPassBd: EditText = findViewById(R.id.userPass_auth)
-        val buttonAuth: Button = findViewById(R.id.buttonAuth)
+    private fun init(){
+        views.apply {
+            buttonAuth.setOnClickListener {
 
-        val transToReg: TextView = findViewById(R.id.TransToReg)
+                val username = userLoginAuth.text.toString().trim()
+                val password = userPassAuth.text.toString().trim()
 
-        buttonAuth.setOnClickListener {
-            val login = userLoginBd.text.toString().trim()
-            val pass = userPassBd.text.toString().trim()
-
-            if(login == "" || pass == ""){
-                Toast.makeText(this, "Не все поля заполнены", Toast.LENGTH_SHORT).show()
-            }
-            else{
-                val db = DbHelper(this, null)
-                val authUser = db.getUser(login, pass)
-
-                if(authUser){
-                    Toast.makeText(this, "Пользователь $login авторизован", Toast.LENGTH_SHORT).show()
-                    userLoginBd.text.clear()
-                    userPassBd.text.clear()
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
+                if (username.isEmpty() || password.isEmpty()) {
+                    Toast.makeText(this@AuthActivity, "Пожалуйста, введите имя пользователя и пароль", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
                 }
-                else{
-                    Toast.makeText(this, "Неверно указаны логин или пароль", Toast.LENGTH_SHORT).show()
+
+                mainRepository.login(username, password) { isDone, message ->
+                    if (!isDone) {
+                        // выводим причину ошибки
+                        Toast.makeText(this@AuthActivity, message, Toast.LENGTH_SHORT).show()
+                    } else { // успешный вход в систему
+                        startActivity(Intent(this@AuthActivity, MainActivity::class.java).apply {
+                            putExtra("username", username)
+                            putExtra("FRAGMENT_TO_SHOW", "MainFragment")
+                            putExtra("TYPE", "view")
+                        })
+                        //finish()
+                    }
                 }
             }
-
-        }
-
-        transToReg.setOnClickListener {
-            //переход на другую страницу
-            val intent = Intent(this, RegActivity::class.java)
-            startActivity(intent)
+            TransToReg.setOnClickListener {
+                startActivity(Intent(this@AuthActivity, RegActivity::class.java))
+            }
         }
     }
 }

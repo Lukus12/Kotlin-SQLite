@@ -4,4 +4,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#343438</color>
     <color name="bej">#EECFC9B0</color>
+    <color name="darkBej">#EE81613E</color>
+    <color name="colorPressed">#EE65421C</color>
+    <color name="colorFocused">#EED68022</color>
 </resources>

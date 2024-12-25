@@ -13,15 +13,16 @@ import androidx.fragment.app.activityViewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.example.kotlin_sqlite.domain.models.Product
 import com.example.kotlin_sqlite.presentation.MainViewModel
-import com.example.kotlin_sqlite.presentation.adapters.ProductAdapter
 import com.example.kotlin_sqlite.presentation.adapters.VpAdapter
 import com.example.kotlin_sqlite.databinding.FragmentMainBinding
-import com.example.kotlin_sqlite.fragments.ServicesFragment
-import com.example.kotlin_sqlite.fragments.DoctorsFragment
+import com.example.kotlin_sqlite.presentation.activities.MainActivity
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MainFragment : Fragment() {
+
+    private lateinit var username: String
 
     private val fList = listOf(
         ProductFragment.newInstance(),
@@ -58,6 +59,11 @@ class MainFragment : Fragment() {
     //переключение вкладок
     private fun init()= with(binding){
 
+        username = (activity as MainActivity).intent.getStringExtra("username") ?: ""
+
+        profileIcon.setOnClickListener {
+            (activity as MainActivity).switchToProfileFragment(username)
+        }
 
         search.setIconifiedByDefault(false)
 
@@ -71,22 +77,11 @@ class MainFragment : Fragment() {
         vp.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-// Здесь можно добавить код обновления фрагмента при его переключении
+                // Здесь можно добавить код обновления фрагмента при его переключении
                 val fragment = fList[position]
                 if (fragment is ProductFragment) {
                     Log.d("MyLog", "all")
-                   // model.favData.value = ProductAdapter.fafv.asd
                     model.liveDataList.value = ll
-                    /*if (arr.isEmpty() and arrf.isEmpty()) {
-                        model.favData.value = ItemsAdapter.fafv.asd
-                        model.liveDataList.value = ll
-                    }
-                    else {
-                        model.favData.value = arrf
-                        model.liveDataList.value = arr
-                    }*/
-
-
 
                 } else if (fragment is ServicesFragment) {
                     Log.d("MyLog", "fav")
@@ -104,6 +99,7 @@ class MainFragment : Fragment() {
         })
 
     }
+
 
 
 

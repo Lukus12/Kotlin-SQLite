@@ -1,4 +1,4 @@
-package com.example.kotlin_sqlite.fragments
+package com.example.kotlin_sqlite.presentation.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,7 +11,9 @@ import com.example.kotlin_sqlite.databinding.FragmentDoctorsBinding
 import com.example.kotlin_sqlite.domain.models.Doctors
 import com.example.kotlin_sqlite.presentation.MainViewModel
 import com.example.kotlin_sqlite.presentation.adapters.DoctorsAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DoctorsFragment : Fragment() {
     private lateinit var binding: FragmentDoctorsBinding
     private val model: MainViewModel by activityViewModels()
@@ -33,6 +35,7 @@ class DoctorsFragment : Fragment() {
     private fun initItemsList() = with(binding){
 
         itemsDocList.layoutManager = LinearLayoutManager(activity) // тут можно изменить то, как отображается наш список верт/гор
+
 
 
         val list = ArrayList<Doctors>()
